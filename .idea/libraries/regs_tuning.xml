@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="regs_tuning">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/regs_tuning_jar/regs_tuning.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
