@@ -18,7 +18,7 @@
                   <HBox prefHeight="0.0" prefWidth="294.0" spacing="20.0">
                      <children>
                         <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="329.0" />
-                        <ToggleButton fx:id="button" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="connect" />
+                        <ToggleButton fx:id="connectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="connect" />
                      </children>
                   </HBox>
                         <Label text="ST_SREG_SPI_1">
@@ -40,7 +40,7 @@
                                 <CheckBox fx:id="stReg11" mnemonicParsing="false" text="1" />
                                 <CheckBox fx:id="stReg10" mnemonicParsing="false" text="0" />
                         <HBox prefHeight="26.0" prefWidth="34.0" />
-                        <Button mnemonicParsing="false" text="send" />
+                        <Button fx:id="regButton1" mnemonicParsing="false" text="send" />
                             </children>
                      <VBox.margin>
                         <Insets />
@@ -65,7 +65,7 @@
                                 <CheckBox fx:id="stReg21" mnemonicParsing="false" text="1" />
                                 <CheckBox fx:id="stReg20" mnemonicParsing="false" text="0" />
                         <HBox prefHeight="25.0" prefWidth="34.0" />
-                        <Button mnemonicParsing="false" text="send" />
+                        <Button fx:id="regButton2" mnemonicParsing="false" text="send" />
                             </children>
                         </HBox>
                         <Label layoutX="10.0" layoutY="84.0" text="ST_SREG_SPI_3">
@@ -84,7 +84,7 @@
                                 <CheckBox fx:id="stReg31" mnemonicParsing="false" text="1" />
                                 <CheckBox fx:id="stReg30" mnemonicParsing="false" text="0" />
                         <HBox prefHeight="25.0" prefWidth="34.0" />
-                        <Button mnemonicParsing="false" text="send" />
+                        <Button fx:id="regButton3" mnemonicParsing="false" text="send" />
                             </children>
                         </HBox>
                         <Label layoutX="10.0" layoutY="269.0" text="ST_SREG_SPI_4">
@@ -103,7 +103,7 @@
                                 <CheckBox fx:id="stReg41" mnemonicParsing="false" text="1" />
                                 <CheckBox fx:id="stReg40" mnemonicParsing="false" text="0" />
                         <HBox prefHeight="25.0" prefWidth="34.0" />
-                        <Button mnemonicParsing="false" text="send" />
+                        <Button fx:id="regButton4" mnemonicParsing="false" text="send" />
                             </children>
                         </HBox>
                         <HBox layoutX="20.0" layoutY="163.0" spacing="10.0">
@@ -134,7 +134,7 @@
                                 <CheckBox fx:id="stReg61" mnemonicParsing="false" text="1" />
                                 <CheckBox fx:id="stReg60" mnemonicParsing="false" text="0" />
                         <HBox prefHeight="25.0" prefWidth="34.0" />
-                        <Button mnemonicParsing="false" text="send" />
+                        <Button fx:id="regButton5" mnemonicParsing="false" text="send" />
                             </children>
                         </HBox>
                         <HBox layoutX="20.0" layoutY="348.0" spacing="10.0">

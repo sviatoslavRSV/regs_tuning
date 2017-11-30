@@ -35,12 +35,9 @@ public class Uart {
     }
 
     public void send(UartData uartData) {
-        String command = "%3e07";
-        String endCommand = "*";
+        String command = uartData.getCommand();
         port.writeBytes(command.getBytes(), command.length());
-        port.writeBytes(uartData.getDataArray(), uartData.getDataArray().length);
-        port.writeBytes(endCommand.getBytes(), endCommand.length());
-        System.out.println(uartData);
+        System.out.println(command);
     }
 
     public ObservableList<SerialPort> getPortListString() {

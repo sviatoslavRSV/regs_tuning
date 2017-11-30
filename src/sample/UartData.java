@@ -1,27 +1,25 @@
 package sample;
 
 
-import java.util.Arrays;
-
 public class UartData {
-    private byte[] dataArray;
+    private String command;
 
-    public UartData() {
-        this.dataArray = new byte[7];
+    public void createCommand(String command, int dataByte) {
+        this.command = "%" + command + dataByte + "*";
     }
 
-    public byte[] getDataArray() {
-        return dataArray;
+    public void setCommand(String command) {
+        this.command = command;
     }
 
-    public void setDataArray(byte[] dataArray) {
-        this.dataArray = dataArray;
+    public String getCommand() {
+        return command;
     }
 
     @Override
     public String toString() {
         return "UartData{" +
-                "dataArray=" + Arrays.toString(dataArray) +
+                "command='" + command + '\'' +
                 '}';
     }
 }
