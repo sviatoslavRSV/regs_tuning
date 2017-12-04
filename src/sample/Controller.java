@@ -147,7 +147,7 @@ public class Controller {
     private ComboBox comboBox;
 
     private UartData uartData = new UartData();
-    private SerialPort serialPort;
+
     private Uart uart;
 
     @FXML
@@ -166,9 +166,9 @@ public class Controller {
         List<CheckBox> checkBoxList5 = new ArrayList<>();
         checkBoxList5.addAll(Arrays.asList(stReg50, stReg51, stReg52, stReg53, stReg54, stReg55, stReg56, stReg57));
         List<CheckBox> checkBoxList6 = new ArrayList<>();
-        checkBoxList5.addAll(Arrays.asList(stReg60, stReg61, stReg62, stReg63, stReg64, stReg65, stReg66, stReg67));
+        checkBoxList6.addAll(Arrays.asList(stReg60, stReg61, stReg62, stReg63, stReg64, stReg65, stReg66, stReg67));
         List<CheckBox> checkBoxList7 = new ArrayList<>();
-        checkBoxList5.addAll(Arrays.asList(stReg70, stReg71, stReg72, stReg73, stReg74, stReg75, stReg76, stReg77));
+        checkBoxList7.addAll(Arrays.asList(stReg70, stReg71, stReg72, stReg73, stReg74, stReg75, stReg76, stReg77));
         List<List<CheckBox>> checkBoxes = new ArrayList<>(Arrays.asList(checkBoxList1, checkBoxList2, checkBoxList3,
                 checkBoxList4, checkBoxList5, checkBoxList6, checkBoxList7));
 
@@ -177,15 +177,18 @@ public class Controller {
             int index = Integer.parseInt(String.valueOf(button.getId().charAt(button.getId().length() - 1)));
             int tempData = 0;
             int count = 1;
-            if (index == 4 || index == 5) count = 2;
+            if (index == 4 || index == 5) {
+                if (index == 5) index += 1;
+                count = 2;
+            }
             for (int i = 0; i < count; i++) {
                 for (CheckBox checkBox : checkBoxes.get(index - 1 + i)) {
                     int bit = 1 << Integer.parseInt(String.valueOf(checkBox.getId().charAt(checkBox.getId().length() - 1)));
                     if (checkBox.isSelected()) {
-                        tempData = tempData | ((i == 1) ? bit : (bit << 8));
+                        tempData = tempData | ((i == 0) ? bit : (bit << 8));
                     }
                 }
-                uartData.createCommand(String.valueOf(0x3f + index) + String.valueOf(0x01 + i) + "", tempData);
+                uartData.createCommand(0x3f + index + "0", 0x01 + i + "", tempData);
             }
             System.out.println(uartData);
             uart.send(uartData);
@@ -218,30 +221,30 @@ public class Controller {
         };
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("value listener");
-            comboBox.getItems().clear();
-            comboBox.setItems(uart.getPortListString());
-
-            this.serialPort = (SerialPort) newValue;
+//            comboBox.getItems().clear();
+//            comboBox.setItems(uart.getPortListString());
+            SerialPort serialPort;
+            serialPort = (SerialPort) newValue;
+            uart.setPort(serialPort);
         });
         comboBox.setCellFactory(cellFactory);
         comboBox.setButtonCell((ListCell) cellFactory.call(null));
         connectButton.setOnAction(event -> {
             if (connectButton.isSelected()) {
-                serialPort.openPort();
                 try {
-                    if (!serialPort.isOpen()) throw new PortUnreachableException();
+                    uart.openPortDevice();
                     connectButton.setSelected(true);
                     connectButton.setText("disconnect");
-                    System.out.println("port is opened " + serialPort.getDescriptivePortName());
                 } catch (PortUnreachableException e) {
+                    System.out.println(e.getCause());
                     connectButton.setSelected(false);
                     connectButton.setText("connect");
-                    System.out.println("port is not opened");
                 }
             } else {
-                serialPort.closePort();
+                uart.getPort().closePort();
                 connectButton.setText("connect");
                 connectButton.setSelected(false);
+                System.out.println("port closed");
             }
         });
     }

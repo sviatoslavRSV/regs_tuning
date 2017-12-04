@@ -3,9 +3,29 @@ package sample;
 
 public class UartData {
     private String command;
+    private int data;
+    private String numBytes;
 
-    public void createCommand(String command, int dataByte) {
-        this.command = "%" + command + dataByte + "*";
+    public void createCommand(String command,String numBytes, int dataByte) {
+        this.command = "%" + command;
+        this.numBytes = numBytes;
+        this.data = dataByte;
+    }
+
+    public String getNumBytes() {
+        return numBytes;
+    }
+
+    public void setNumBytes(String numBytes) {
+        this.numBytes = numBytes;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 
     public void setCommand(String command) {
@@ -20,6 +40,8 @@ public class UartData {
     public String toString() {
         return "UartData{" +
                 "command='" + command + '\'' +
+                ", data=" + data +
+                ", numBytes=" + numBytes +
                 '}';
     }
 }
