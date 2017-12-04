@@ -152,7 +152,6 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        uart = new Uart();
         scanAndConnectToDevice();
 
         List<CheckBox> checkBoxList1 = new ArrayList<>();
@@ -201,6 +200,7 @@ public class Controller {
     }
 
     private void scanAndConnectToDevice() {
+        uart = new Uart();
         comboBox.setItems(uart.getPortListString());
         comboBox.setOnAction(event -> System.out.println("combobox selected"));
         Callback cellFactory = new Callback<ListView<SerialPort>, ListCell<SerialPort>>() {
@@ -220,9 +220,6 @@ public class Controller {
             }
         };
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("value listener");
-//            comboBox.getItems().clear();
-//            comboBox.setItems(uart.getPortListString());
             SerialPort serialPort;
             serialPort = (SerialPort) newValue;
             uart.setPort(serialPort);
@@ -236,7 +233,6 @@ public class Controller {
                     connectButton.setSelected(true);
                     connectButton.setText("disconnect");
                 } catch (PortUnreachableException e) {
-                    System.out.println(e.getCause());
                     connectButton.setSelected(false);
                     connectButton.setText("connect");
                 }
@@ -244,7 +240,7 @@ public class Controller {
                 uart.getPort().closePort();
                 connectButton.setText("connect");
                 connectButton.setSelected(false);
-                System.out.println("port closed");
+                System.out.println("port was closed");
             }
         });
     }
