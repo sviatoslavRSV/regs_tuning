@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="669.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Group fx:id="group">
             <children>
@@ -17,8 +20,9 @@
                     <children>
                   <HBox prefHeight="0.0" prefWidth="294.0" spacing="20.0">
                      <children>
-                        <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="329.0" />
-                        <ToggleButton fx:id="connectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="connect" />
+                        <Button fx:id="rescanButton" maxHeight="25.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="scan" />
+                        <ComboBox fx:id="comboBox" prefHeight="25.0" prefWidth="291.0" HBox.hgrow="NEVER" />
+                        <ToggleButton fx:id="connectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="connect" HBox.hgrow="NEVER" />
                      </children>
                   </HBox>
                         <Label text="ST_SREG_SPI_1">
@@ -149,6 +153,39 @@
                                 <CheckBox fx:id="stReg70" mnemonicParsing="false" text="0" />
                             </children>
                         </HBox>
+                  <Label text="ST_SREG_SPI_DC_DC">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <HBox spacing="10.0">
+                     <children>
+                        <CheckBox fx:id="stReg87" mnemonicParsing="false" text="7" />
+                        <CheckBox fx:id="stReg86" mnemonicParsing="false" text="6" />
+                        <CheckBox fx:id="stReg85" mnemonicParsing="false" text="5" />
+                        <CheckBox fx:id="stReg84" mnemonicParsing="false" text="4" />
+                        <CheckBox fx:id="stReg83" mnemonicParsing="false" text="3" />
+                        <CheckBox fx:id="stReg82" mnemonicParsing="false" text="2" />
+                        <CheckBox fx:id="stReg81" mnemonicParsing="false" text="1" />
+                        <CheckBox fx:id="stReg80" mnemonicParsing="false" text="0" />
+                        <HBox prefHeight="25.0" prefWidth="34.0" />
+                        <Button fx:id="regButton6" mnemonicParsing="false" text="send" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <CheckBox fx:id="stReg97" mnemonicParsing="false" text="7" />
+                        <CheckBox fx:id="stReg96" mnemonicParsing="false" text="6" />
+                        <CheckBox fx:id="stReg95" mnemonicParsing="false" text="5" />
+                        <CheckBox fx:id="stReg94" mnemonicParsing="false" text="4" />
+                        <CheckBox fx:id="stReg93" mnemonicParsing="false" text="3" />
+                        <CheckBox fx:id="stReg92" mnemonicParsing="false" text="2" />
+                        <CheckBox fx:id="stReg91" mnemonicParsing="false" text="1" />
+                        <CheckBox fx:id="stReg90" mnemonicParsing="false" text="0" />
+                        <HBox prefHeight="25.0" prefWidth="34.0" />
+                        <ToggleButton fx:id="onDcButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="ON_DCDC_RELAYS" />
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
             </children>

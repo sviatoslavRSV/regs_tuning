@@ -4,6 +4,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.effect.Lighting;
 import javafx.util.Callback;
 
 import java.net.PortUnreachableException;
@@ -130,6 +131,41 @@ public class Controller {
     private CheckBox stReg76;
     @FXML
     private CheckBox stReg77;
+
+    @FXML
+    private CheckBox stReg80;
+    @FXML
+    private CheckBox stReg81;
+    @FXML
+    private CheckBox stReg82;
+    @FXML
+    private CheckBox stReg83;
+    @FXML
+    private CheckBox stReg84;
+    @FXML
+    private CheckBox stReg85;
+    @FXML
+    private CheckBox stReg86;
+    @FXML
+    private CheckBox stReg87;
+
+    @FXML
+    private CheckBox stReg90;
+    @FXML
+    private CheckBox stReg91;
+    @FXML
+    private CheckBox stReg92;
+    @FXML
+    private CheckBox stReg93;
+    @FXML
+    private CheckBox stReg94;
+    @FXML
+    private CheckBox stReg95;
+    @FXML
+    private CheckBox stReg96;
+    @FXML
+    private CheckBox stReg97;
+
     @FXML
     private Button regButton1;
     @FXML
@@ -140,63 +176,104 @@ public class Controller {
     private Button regButton4;
     @FXML
     private Button regButton5;
+    @FXML
+    private Button regButton6;
 
     @FXML
     private ToggleButton connectButton;
     @FXML
     private ComboBox comboBox;
+    @FXML
+    private Button rescanButton;
+    @FXML
+    private ToggleButton onDcButton;
 
     private UartData uartData = new UartData();
-
     private Uart uart;
 
     @FXML
     public void initialize() {
+        rescanButton.setOnAction(event -> scanAndConnectToDevice());
+        onDcButton.setOnMouseEntered(event -> onDcButton.setEffect(new Lighting()));
+        onDcButton.setOnMouseExited(event -> onDcButton.setEffect(null));
+        EventHandler handler3 = event -> {
+            ToggleButton toggleButton = (ToggleButton) event.getSource();
+            int command = 0;
+            if (toggleButton.isSelected()) {
+                command = 0x46;
+                toggleButton.setText("OFF_DCDC_RELAY");
+            } else {
+                command = 0x47;
+                toggleButton.setText("ON_DCDC_RELAY");
+            }
+            uartData.createCommand(command + "0", 0x01 + "", 0);
+            System.out.println(uartData);
+            uart.send(uartData);
+        };
+        onDcButton.setOnAction(handler3);
+
         scanAndConnectToDevice();
 
-        List<CheckBox> checkBoxList1 = new ArrayList<>();
-        checkBoxList1.addAll(Arrays.asList(stReg10, stReg11, stReg12, stReg13, stReg14, stReg15, stReg16, stReg17));
-        List<CheckBox> checkBoxList2 = new ArrayList<>();
-        checkBoxList2.addAll(Arrays.asList(stReg20, stReg21, stReg22, stReg23, stReg24, stReg25, stReg26, stReg27));
-        List<CheckBox> checkBoxList3 = new ArrayList<>();
-        checkBoxList3.addAll(Arrays.asList(stReg30, stReg31, stReg32, stReg33, stReg34, stReg35, stReg36, stReg37));
-        List<CheckBox> checkBoxList4 = new ArrayList<>();
-        checkBoxList4.addAll(Arrays.asList(stReg40, stReg41, stReg42, stReg43, stReg44, stReg45, stReg46, stReg47));
-        List<CheckBox> checkBoxList5 = new ArrayList<>();
-        checkBoxList5.addAll(Arrays.asList(stReg50, stReg51, stReg52, stReg53, stReg54, stReg55, stReg56, stReg57));
-        List<CheckBox> checkBoxList6 = new ArrayList<>();
-        checkBoxList6.addAll(Arrays.asList(stReg60, stReg61, stReg62, stReg63, stReg64, stReg65, stReg66, stReg67));
-        List<CheckBox> checkBoxList7 = new ArrayList<>();
-        checkBoxList7.addAll(Arrays.asList(stReg70, stReg71, stReg72, stReg73, stReg74, stReg75, stReg76, stReg77));
-        List<List<CheckBox>> checkBoxes = new ArrayList<>(Arrays.asList(checkBoxList1, checkBoxList2, checkBoxList3,
-                checkBoxList4, checkBoxList5, checkBoxList6, checkBoxList7));
+        List<CheckBox> checkBoxList1 = new ArrayList<>(Arrays.asList(stReg10, stReg11, stReg12, stReg13, stReg14, stReg15, stReg16, stReg17));
+        List<CheckBox> checkBoxList2 = new ArrayList<>(Arrays.asList(stReg20, stReg21, stReg22, stReg23, stReg24, stReg25, stReg26, stReg27));
+        List<CheckBox> checkBoxList3 = new ArrayList<>(Arrays.asList(stReg30, stReg31, stReg32, stReg33, stReg34, stReg35, stReg36, stReg37));
+        List<CheckBox> checkBoxList4 = new ArrayList<>(Arrays.asList(stReg40, stReg41, stReg42, stReg43, stReg44, stReg45, stReg46, stReg47));
+        List<CheckBox> checkBoxList5 = new ArrayList<>(Arrays.asList(stReg50, stReg51, stReg52, stReg53, stReg54, stReg55, stReg56, stReg57));
+        List<CheckBox> checkBoxList6 = new ArrayList<>(Arrays.asList(stReg60, stReg61, stReg62, stReg63, stReg64, stReg65, stReg66, stReg67));
+        List<CheckBox> checkBoxList7 = new ArrayList<>(Arrays.asList(stReg70, stReg71, stReg72, stReg73, stReg74, stReg75, stReg76, stReg77));
+        List<CheckBox> checkBoxList8 = new ArrayList<>(Arrays.asList(stReg80, stReg81, stReg82, stReg83, stReg84, stReg85, stReg86, stReg87));
+        List<CheckBox> checkBoxList9 = new ArrayList<>(Arrays.asList(stReg90, stReg91, stReg92, stReg93, stReg94, stReg95, stReg96, stReg97));
 
-        EventHandler handler = event -> {
+        List<List<CheckBox>> checkBoxes = new ArrayList<>(Arrays.asList(checkBoxList1, checkBoxList2, checkBoxList3,
+                checkBoxList4, checkBoxList5, checkBoxList6, checkBoxList7, checkBoxList8, checkBoxList9));
+
+        EventHandler handler1 = event -> {
             Button button = (Button) event.getSource();
             int index = Integer.parseInt(String.valueOf(button.getId().charAt(button.getId().length() - 1)));
             int tempData = 0;
-            int count = 1;
-            if (index == 4 || index == 5) {
-                if (index == 5) index += 1;
-                count = 2;
+            for (CheckBox checkBox : checkBoxes.get(index - 1)) {
+                int bit = 1 << Integer.parseInt(String.valueOf(checkBox.getId().charAt(checkBox.getId().length() - 1)));
+                if (checkBox.isSelected()) {
+                    tempData = tempData | bit;
+                }
             }
-            for (int i = 0; i < count; i++) {
-                for (CheckBox checkBox : checkBoxes.get(index - 1 + i)) {
+            uartData.createCommand(0x3f + index + "0", 0x01 + "", tempData);
+            System.out.println(uartData);
+            uart.send(uartData);
+        };
+        EventHandler handler2 = event -> {
+            Button button = (Button) event.getSource();
+            int index = Integer.parseInt(String.valueOf(button.getId().charAt(button.getId().length() - 1)));
+            int tempData = 0;
+//            index++;
+            if (index == 4) {
+                index = 3;
+            } else if (index == 6) {
+                index = 7;
+            }
+            for (int i = 0; i < 2; i++) {
+                for (CheckBox checkBox : checkBoxes.get(index + i)) {
                     int bit = 1 << Integer.parseInt(String.valueOf(checkBox.getId().charAt(checkBox.getId().length() - 1)));
                     if (checkBox.isSelected()) {
                         tempData = tempData | ((i == 0) ? bit : (bit << 8));
                     }
                 }
-                uartData.createCommand(0x3f + index + "0", 0x01 + i + "", tempData);
             }
+            if (index == 3) {
+                index = 4;
+            } else if (index == 7) {
+                index = 6;
+            }
+            uartData.createCommand(0x3f + index + "0", 0x02 + "", tempData);
             System.out.println(uartData);
             uart.send(uartData);
         };
-        regButton1.setOnAction(handler);
-        regButton2.setOnAction(handler);
-        regButton3.setOnAction(handler);
-        regButton4.setOnAction(handler);
-        regButton5.setOnAction(handler);
+        regButton1.setOnAction(handler1);
+        regButton2.setOnAction(handler1);
+        regButton3.setOnAction(handler1);
+        regButton4.setOnAction(handler2);
+        regButton5.setOnAction(handler2);
+        regButton6.setOnAction(handler2);
     }
 
     private void scanAndConnectToDevice() {

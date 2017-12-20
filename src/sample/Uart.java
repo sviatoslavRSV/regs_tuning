@@ -44,9 +44,9 @@ public class Uart {
             if (Integer.parseInt(uartData.getNumBytes()) == 2) outputStream.write(uartData.getData() >> 8);
             port.writeBytes("*".getBytes(), 1);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        System.out.println(command);
+//        System.out.println(command);
     }
 
     public void openPortDevice() throws PortUnreachableException {
